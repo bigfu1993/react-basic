@@ -10,11 +10,20 @@ function Comment() {
             alert('请输入评论内容')
             return
         }
-        setList([...list, { id: list.length + 1, msg, ctime: new Date().toLocaleString() }])
+        setList([...list, { id: list.length + 1, msg, ctime: new Date().toLocaleString(), agree: Math.floor(Math.random() * 100) }])
         setMsg('')
     }
     function handleRemove(e, id) {
         setList(list.filter(l => l.id !== id))
+    }
+    function handleSort(e, active) {
+        setActive(active)
+        if (active == 'hot') {
+            setList(list.sort((a, b) => b.agree - a.agree))
+        }
+        if (active == 'new') {
+            setList(list.sort((a, b) => new Date(b.ctime).getTime() - new Date(a.ctime).getTime()))
+        }
     }
     return (
         <>
@@ -23,7 +32,7 @@ function Comment() {
                 {tab.map(t => <span
                     key={t.value}
                     className={t.value == active ? 'active' : ''}
-                    onClick={() => setActive(t.value)}
+                    onClick={(e) => handleSort(e, t.value)}
                 >{t.label}</span>)}
             </div>
             <div>
