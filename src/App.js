@@ -1,10 +1,10 @@
 import Button from './components/Button'
 import Comment from './components/Comment'
 import Props from './components/Props'
-
 import List from './List/index'
 import Boolean from './Boolean/index'
 
+import './app.css'
 // let List = require('./list/list')
 function App() {
   return (
