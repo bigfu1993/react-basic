@@ -1,17 +1,20 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import './index.css'
 function Comment() {
+    const iptRef = useRef(null)
     const [active, setActive] = useState('new')
     const [tab, setTab] = useState([{ value: 'new', label: '最新' }, { value: 'hot', label: '最热' }])
     const [msg, setMsg] = useState('')
     const [list, setList] = useState([{ id: 0, msg: '这是一条评论', ctime: '', agree: 0 }])
     function handleComment(e, msg) {
+        console.log(iptRef.current)
         if (!msg || msg.length == 0) {
             alert('请输入评论内容')
             return
         }
         setList([...list, { id: list.length + 1, msg, ctime: new Date().toLocaleString(), agree: Math.floor(Math.random() * 100) }])
         setMsg('')
+        iptRef.current.focus()
     }
     function handleRemove(e, id) {
         setList(list.filter(l => l.id !== id))
@@ -36,7 +39,7 @@ function Comment() {
                 >{t.label}</span>)}
             </div>
             <div>
-                <input value={msg} onChange={(e) => setMsg(e.target.value)}></input>
+                <input value={msg} ref={iptRef} onChange={(e) => setMsg(e.target.value)}></input>
                 <button onClick={(e) => handleComment(e, msg)}>发送</button>
             </div>
             <ul>
