@@ -8,6 +8,7 @@ import Boolean from './components/Boolean'
 import Props from './Props'
 import PropsContext from './Props/Context'
 import Effect from './Effect/index'
+import Hook from './Hook/index'
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
       {/* <Comment></Comment> */}
       {/* <Props></Props> */}
       {/* <PropsContext></PropsContext> */}
-      <Effect></Effect>
+      {/* <Effect></Effect> */}
+      <Hook></Hook>
     </div>
   );
 }
