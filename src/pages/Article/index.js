@@ -6,7 +6,7 @@ export default function Article() {
     return (
         <>
             <div>Article</div>
-            <Link to="/login">to="login"</Link>
+            <Link to="/login/998/jack">to="login"</Link>
             <div>id:{id} | name:{name}</div>
         </>
     )
