@@ -1,7 +1,16 @@
 import React from 'react';
+import { RouterProvider } from 'react-router-dom'
 import ReactDOM from 'react-dom/client';
-import App from './App';
+import router from './router'
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+    <React.StrictMode>
+        <RouterProvider router={router}></RouterProvider>
+    </React.StrictMode>
+)
 
+
+// import App from './App';
+// root.render(<App />);

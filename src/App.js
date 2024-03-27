@@ -10,18 +10,19 @@ import PropsContext from './Props/Context'
 import Effect from './Effect/index'
 import Hook from './Hook/index'
 
-
 function App() {
   return (
     <div className="App">
       Hello React
+
+      <Comment></Comment>
+
       {/* <List></List> */}
       {/* {Boolean()} */}
       {/* <div>
         <h1>components</h1>
         <Button></Button>
       </div> */}
-      {/* <Comment></Comment> */}
       {/* <Props></Props> */}
       {/* <PropsContext></PropsContext> */}
       {/* <Effect></Effect> */}

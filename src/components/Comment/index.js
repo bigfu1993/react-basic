@@ -1,19 +1,50 @@
-import { useState, useRef } from 'react'
+
 import './index.css'
+import { useState, useRef, useEffect } from 'react'
+import axios from 'axios'
+import dayjs from 'dayjs'
+function Item({ l, i, handleRemove }) {
+    return (
+        <li>
+            {l.content}-
+            [{l.ctime || "00"}]-
+            {l.like || 0}-
+            {i > 1 && <span onClick={(e) => handleRemove(e, l.rpid)}>删除</span>}
+        </li>
+    )
+}
 function Comment() {
     const iptRef = useRef(null)
     const [active, setActive] = useState('new')
     const [tab, setTab] = useState([{ value: 'new', label: '最新' }, { value: 'hot', label: '最热' }])
-    const [msg, setMsg] = useState('')
-    const [list, setList] = useState([{ id: 0, msg: '这是一条评论', ctime: '', agree: 0 }])
+    const [content, setContent] = useState('')
+    const [list, setList] = useState([])
+    useEffect(() => {
+        async function getList() {
+            const res = await axios.get('http://localhost:3004/list')
+            console.log(res.data)
+            setList(res.data)
+        }
+        getList()
+    }, [])
     function handleComment(e, msg) {
         console.log(iptRef.current)
-        if (!msg || msg.length == 0) {
+        if (!msg || msg.length === 0) {
             alert('请输入评论内容')
             return
         }
-        setList([...list, { id: list.length + 1, msg, ctime: new Date().toLocaleString(), agree: Math.floor(Math.random() * 100) }])
-        setMsg('')
+        setList([...list, {
+            "rpid": list.length + 1,
+            "user": {
+                "uid": "13258165",
+                "avatar": "http://toutiao.itheima.net/resources/images/98.jpg",
+                "uname": "周杰伦"
+            },
+            "content": content,
+            "ctime": dayjs(new Date()).format('MM-DD hh:mm') || new Date().toLocaleString(),
+            like: Math.floor(Math.random() * 100),
+        }])
+        setContent('')
         iptRef.current.focus()
     }
     function handleRemove(e, id) {
@@ -21,10 +52,10 @@ function Comment() {
     }
     function handleSort(e, active) {
         setActive(active)
-        if (active == 'hot') {
-            setList(list.sort((a, b) => b.agree - a.agree))
+        if (active === 'hot') {
+            setList(list.sort((a, b) => b.like - a.like))
         }
-        if (active == 'new') {
+        if (active === 'new') {
             setList(list.sort((a, b) => new Date(b.ctime).getTime() - new Date(a.ctime).getTime()))
         }
     }
@@ -34,23 +65,16 @@ function Comment() {
                 评论：{list.length}
                 {tab.map(t => <span
                     key={t.value}
-                    className={t.value == active ? 'active' : ''}
+                    className={t.value === active ? 'active' : ''}
                     onClick={(e) => handleSort(e, t.value)}
                 >{t.label}</span>)}
             </div>
             <div>
-                <input value={msg} ref={iptRef} onChange={(e) => setMsg(e.target.value)}></input>
-                <button onClick={(e) => handleComment(e, msg)}>发送</button>
+                <input value={content} ref={iptRef} onChange={(e) => setContent(e.target.value)}></input>
+                <button onClick={(e) => handleComment(e, content)}>发送</button>
             </div>
             <ul>
-                {list.map((l, i) =>
-                    <li key={l.id}>
-                        {l.msg}-
-                        [{l.ctime || "00"}]-
-                        {l.agree || 0}-
-                        {i > 1 && <span onClick={(e) => handleRemove(e, l.id)}>删除</span>}
-                    </li>
-                )}
+                {list.length && list.map((l, i) => <Item key={l.rpid} l={l} i={i}></Item>)}
             </ul>
         </>
     )
