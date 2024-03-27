@@ -6,7 +6,8 @@ function Hook() {
     // function handleToggle() {
     //     setFlag(!flag)
     // }
-    const { flag, handleToggle } = useToggle()
+    // const { flag, handleToggle } = useToggle()
+    const [flag, handleToggle] = useToggle()
     return (
         <div>
             <button onClick={() => handleToggle()}>toggle</button>

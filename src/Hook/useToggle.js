@@ -4,5 +4,6 @@ export default function useToggle() {
     function handleToggle() {
         setFlag(!flag)
     }
-    return { flag, handleToggle }
+    // return { flag, handleToggle }
+    return [flag, handleToggle]
 }
