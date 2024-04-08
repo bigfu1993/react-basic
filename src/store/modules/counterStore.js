@@ -8,14 +8,15 @@ const counterStore = createSlice({
   },
   // 修改状态的方法 同步方法 支持直接修改
   reducers: {
-    inscrement (state) {
+    inscrement(state) {
       state.count++
     },
-    decrement (state) {
+    decrement(state) {
       state.count--
     },
-    addToNum (state, action) {
-      state.count = action.payload
+    addToNum(state, action) {
+      console.log(action)
+      state.count = state.count + action.payload
     }
   }
 })
