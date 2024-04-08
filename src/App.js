@@ -13,10 +13,8 @@ import Hook from './Hook/index'
 function App() {
   return (
     <div className="App">
-      Hello React
-
+      Hello React 
       <Comment></Comment>
-
       {/* <List></List> */}
       {/* {Boolean()} */}
       {/* <div>

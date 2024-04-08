@@ -4,7 +4,7 @@ const counterStore = createSlice({
   name: 'counter',
   // 初始化state
   initialState: {
-    count: 0
+    count: 1
   },
   // 修改状态的方法 同步方法 支持直接修改
   reducers: {
